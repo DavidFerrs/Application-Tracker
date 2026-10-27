@@ -13,8 +13,32 @@ function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
   return <MenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} />
 }
 
-function DropdownMenuTrigger({ ...props }: MenuPrimitive.Trigger.Props) {
-  return <MenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />
+function DropdownMenuTrigger({
+  asChild = false,
+  children,
+  render,
+  ...props
+}: MenuPrimitive.Trigger.Props & {
+  asChild?: boolean
+}) {
+  let child: React.ReactElement | undefined
+  if (asChild) {
+    const onlyChild = React.Children.only(children)
+    if (!React.isValidElement(onlyChild)) {
+      throw new Error("DropdownMenuTrigger with asChild requires a single React element.")
+    }
+    child = onlyChild
+  }
+
+  return (
+    <MenuPrimitive.Trigger
+      data-slot="dropdown-menu-trigger"
+      render={child ?? render}
+      {...props}
+    >
+      {asChild ? undefined : children}
+    </MenuPrimitive.Trigger>
+  )
 }
 
 function DropdownMenuContent({
