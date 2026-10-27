@@ -5,11 +5,19 @@ import { redirect } from "next/navigation";
 import { initializeUserBoard } from "../init-user-board";
 import connectDB from "../db";
 
+const trustedOrigins = [
+  process.env.BETTER_AUTH_URL,
+  process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+]
+  .filter((origin): origin is string => Boolean(origin))
+  .map((origin) => new URL(origin).origin);
+
 const mongooseInstance = await connectDB();
 const client = mongooseInstance.connection.getClient();
 const db = client.db();
 
 export const auth = betterAuth({
+  trustedOrigins,
   database: mongodbAdapter(db, {
     client,
   }),
