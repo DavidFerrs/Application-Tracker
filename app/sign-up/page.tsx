@@ -4,6 +4,7 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
+  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,19 +14,27 @@ import Link from "next/link";
 export default function SignUp() {
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-white p-4">
-      <Card>
-        <CardTitle>Sign Up</CardTitle>
-        <CardDescription>
-          Create an account to start tracking your job aplications.
-        </CardDescription>
-        <form>
-          <CardContent>
-            <div>
-              <Label htmlFor="name">Name</Label>
+      <Card className="w-full max-w-md border-gray-200 shadow-lg">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold text-black">
+            Sign Up
+          </CardTitle>
+          <CardDescription>
+            Create an account to start tracking your job aplications.
+          </CardDescription>
+        </CardHeader>
+        <form className="space-y-4">
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-gray-700">
+                Name
+              </Label>
               <Input id="name" type="text" placeholder="John Doe" required />
             </div>
-            <div>
-              <Label htmlFor="email">Email</Label>
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-gray-700">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="text"
@@ -33,19 +42,28 @@ export default function SignUp() {
                 required
               />
             </div>
-            <div>
-              <Label htmlFor="password">Password</Label>
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-gray-700">
+                Password
+              </Label>
               <Input
                 id="password"
                 type="text"
-                placeholder="your secret password"
                 required
               />
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex flex-col space-y-4">
             <Button type="submit">Sign Up</Button>
-            <p>Already have an account? <Link href="/sign-in">Sign In</Link></p>
+            <p className="text-center text-sm text-gray-600">
+              Already have an account?{" "}
+              <Link
+                href="/sign-in"
+                className="font-medium text-primary hover:underline"
+              >
+                Sign In
+              </Link>
+            </p>
           </CardFooter>
         </form>
       </Card>
